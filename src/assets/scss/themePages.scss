@@ -1,0 +1,63 @@
+$include-html-classes: false;
+@import "vendor/Foundation5/foundation/_functions.scss";
+@import "vendor/Foundation5/foundation/_settings.scss";
+
+
+body {
+    padding-top:0rem;
+}
+
+h2 {
+    color:$silver;
+}
+
+.theme-page-nav{
+    padding-left: rem-calc(70px);
+    margin-bottom: 25px;
+}
+
+.atom-colorblock {
+    width:auto;
+    height:80px;
+    background:$white;
+    padding:4%;
+    border:1px solid $panel-bg;
+    &.dark-blue {
+        background:$dark-blue;
+    }
+    &.jet {
+        background: $jet;
+    }
+    &.silver {
+        background: $silver;
+    }
+    &.red {
+        background: $red;
+    }
+    &.smoke {
+        background: $smoke;
+    }
+    &.white {
+        background: $white;
+        color:#000;
+    }
+    &.panel {
+        background:$panel-bg;
+        &.dark {
+            background: $jet;
+        }
+    }
+}
+
+.fonts li {
+    margin-bottom:10px;
+}
+
+code {
+    display:block;
+    margin:1%;
+    padding:1%;
+    color:$white;
+    background:$body-bg;
+    width:100%;
+}

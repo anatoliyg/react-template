@@ -1,0 +1,86 @@
+//Citco Core has all framework related imports, including foundation and Citco specific component definitions
+@import "core";
+@import "mixins";
+
+// ------------------ Font Definitions  ------------------
+
+@font-face {
+  font-family: Proxima-Regular;
+  src: url(../fonts/Proxima-Nova-Reg.otf);
+}
+
+@font-face {
+  font-family: Proxima-Bold;
+  src: url(../fonts/Proxima-Nova-Bold.otf);
+}
+
+@font-face {
+  font-family: Proxima-Semi-Bold;
+  src: url(../fonts/Proxima-Nova-Sbold.otf);
+}
+
+// ------------------ Debug & Dev classes
+pre.debug-inputData {
+  border: 1px solid;
+  font-size: rem-calc(10px);
+}
+
+// ------------------ General overrides  ------------------
+
+//remove "X" symbol from IE input boxes
+* ::-ms-clear, input ::-ms-clear, input[type=text]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+ul, li {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+small {
+  font-size: 80%;
+}
+
+.textAlignRight {
+  text-align: right;
+}
+
+//Override Foundation header styles
+
+h1, h2, h3 {
+  letter-spacing: 0.05em;
+  font-family: Proxima-Regular;
+}
+
+h1 {
+  font-size: rem-calc(34px); //font-size: 2.6rem;
+  &.page-header {
+    margin-bottom: 40px;
+    padding-right: 5px;
+  }
+}
+
+h2 {
+  margin-bottom: 1.4rem;
+  margin-top: 0rem;
+  //font-size: rem-calc(20px);
+  font-size: 1.5rem;
+  color: $white;
+}
+
+h3 {
+  color: $white;
+  font-size: rem-calc(16px); // font-size: 1.2rem;
+  //view all and other header links
+  a {
+    font-size: 1rem;
+   
+  }
+}

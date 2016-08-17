@@ -1,0 +1,3844 @@
+//Import color styles from Foundation settings
+@import "vendor/Foundation5/foundation/settings";
+
+// ------------------ User Preferences  ------------------
+
+.preferences {
+    h2 {
+        text-transform: uppercase;
+        margin-top: 45px;
+        margin-bottom: 0;
+    }
+    .form-container {
+        margin-top: 15px;
+        label {
+            line-height: 2rem;
+        }
+    }
+    .prefs {
+        display: flex;
+        margin-top: 20px;
+        align-items: baseline;
+        div:not(.more) {
+            flex: 0 1 auto;
+            min-width: 110px;
+        }
+        div:last-child:not(.more) {
+            min-width: 300px;
+        }
+    }
+    .multi-select {
+        width: 260px;
+    }
+    .show-k1, .email-categories {
+        @extend .action;
+        @extend .table-header;
+        padding-left: 0.6rem;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .fa {
+            padding-right: 0.6rem;
+            flex-grow: initial;
+        }
+        span {
+            flex: 1 0 auto;
+        }
+    }
+    small {
+        color: $smoke;
+        line-height: 2rem;
+        font-size: 0.9rem;
+    }
+    .cancel {
+        line-height: 3rem;
+    }
+    .options {
+        margin-bottom: 45px;
+    }
+    .change-password {
+        h2 {
+            color: $white;
+            margin-bottom: 15px;
+        }
+        li.positive {
+            color: green;
+        }
+        li.error {
+            color: $red;
+        }
+        .fa-circle {
+            font-size: 50%;
+            margin-right: 2%;
+            position: relative;
+            top: -1px;
+            color: $white;
+        }
+    }
+    .panel h2 {
+        margin-top: 15px;
+    }
+    div.timezone .multi-select {
+        //needs more space for long country names
+        min-width: 300px;
+        .options {
+            margin-bottom: 0;
+        }
+    }
+    .save-changes {
+        margin-top: 50px;
+        div:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+// ------------------ GLOBAL BASE ---------------------
+.legend-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    div {
+        flex: 0 1 auto;
+        margin-left: 10px;
+        color: $smoke;
+        font-size: 0.8rem;
+        padding-left: 30px;
+        position: relative;
+        text-transform: uppercase;
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 20px;
+            z-index: 1;
+            margin-top: -3px;
+            left: 6px;
+            top: 50%;
+            height: 5px;
+        }
+    }
+}
+
+// ------------------ Charts & Graphs  ------------------
+
+.chart-module {
+    min-height: 300px;
+}
+
+.chart {
+    g.axis line {
+        stroke: #1a2634;
+        stroke-width: 1;
+    }
+
+    g.axis path {
+        display: none;
+    }
+
+    g.axis text {
+        fill: $smoke;
+        font-family: Proxima-Semi-Bold;
+        font-size: .8rem;
+    }
+
+    .grid line {
+        stroke: #1b2634;
+        shape-rendering: crispEdges;
+
+    }
+
+    .grid .minor line {
+        stroke-opacity: .5;
+    }
+
+    .grid text {
+        display: none;
+    }
+
+    .axis line {
+        stroke: #000;
+    }
+
+    .axis path,
+    .grid path {
+        display: none;
+    }
+
+    .mouseover-target {
+        opacity: 0;
+    }
+
+    .chart-grid-background {
+        fill: #263548;
+    }
+    text {
+        fill: #cecece;
+        //font-family: Proxima-Semi-Bold;
+        font-size: 1.0rem;
+    }
+
+    rect.bar {
+        //default color if no chart specified, remove after testing
+        fill: #eee;
+        shape-rendering: crispEdges;
+    }
+
+    &.bar-stacked {
+        //fade all rect elements except the tooltips
+        g.layer g rect {
+            opacity: 0.05;
+            -webkit-transition: all 0.4s ease;
+            //enable hardware acceleration
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            cursor: pointer;
+        }
+
+        g.layer g rect:hover {
+            opacity: 1;
+        }
+        //tmp hide tooltip
+        g.tooltip-group {
+            opacity: 0;
+        }
+
+        //show tooltip
+        g.layer g rect:hover + g.tooltip-group {
+            transform: scale3d(1, 1, 1);
+            opacity: 1;
+        }
+
+        :not(:hover) g.layer g rect {
+            opacity: 1;
+        }
+
+        //tooltip styling
+        g.layer g g.tooltip-group {
+            transform: scale3d(0, 0, 0);
+            -webkit-transform-origin: 50%;
+            -webkit-transition: all 0.2s ease;
+            opacity: 1;
+        }
+        g.layer g rect.chart-tooltip {
+            fill: #13c4d4;
+            opacity: 1;
+        }
+        g.layer g text {
+            fill: $jet;
+            font-size: 1.2rem;
+            opacity: 1;
+        }
+
+        //split the intro animations by chart orientation
+        &.horizontal {
+            g rect {
+                -webkit-animation: bar-grow-horizontal 2s ease 1;
+                animation: bar-grow-horizontal 2s ease 1;
+            }
+        }
+        &.vertical {
+            g rect {
+                -webkit-animation: bar-grow 2s ease 1;
+                animation: bar-grow 2s ease 1;
+            }
+        }
+        //Chart specific styling
+        &.recon-activity-by-day {
+            margin-bottom: 30px;
+        }
+    }
+    &.recon-activity-by-day {
+        .chart-timezone {
+            text-anchor: middle;
+        }
+    }
+    //chart specific colors
+    &.pl-by-instrument {
+        rect.bar {
+            fill: $red;
+        }
+    }
+    &.portfolio-attribution-by,
+    &.portfolio-attribution-by-position {
+        rect.long {
+            fill: #0b8182;
+        }
+        rect.short {
+            fill: #781877;
+        }
+        rect.bar.negative + text {
+            //-webkit-transform: translate(1rem,0);
+            //transform: translate(1rem,0);
+        }
+        rect.bar.positive + text {
+            //-webkit-transform: translate(-1rem,0);
+            //transform: translate(-1rem,0);
+        }
+    }
+    //push text below bar
+    &.portfolio-attribution-by {
+
+        rect.long {
+            fill: #0b8182;
+        }
+        rect.short {
+            fill: #781877;
+        }
+        rect.bar.negative + text {
+            //-webkit-transform: translate(1rem,2rem);
+            //transform: translate(1rem,2rem);
+        }
+        rect.bar.positive + text {
+            //-webkit-transform: translate(-1rem,2rem);
+            //transform: translate(-1rem,2rem);
+        }
+    }
+    &.pnl-by-position {
+        .horizontalBar text {
+            font-size: rem-calc(12px);
+        }
+        rect.bar {
+            fill: #3cb878;
+        }
+        rect.bar.negative {
+            fill: $red;
+        }
+    }
+    &.pnl-attribution-by {
+        .horizontalBar text {
+            font-size: rem-calc(12px);
+        }
+        rect.bar {
+            fill: #3cb878
+        }
+        rect.bar.negative {
+            fill: $red;
+        }
+    }
+    &.pnl-by-category {
+        .horizontalBar text {
+            font-size: rem-calc(12px);
+        }
+        rect.bar {
+            fill: #3cb878;
+        }
+        rect.bar.negative {
+            fill: $red;
+        }
+    }
+    &.recon-break-tracking, &.recon-break-by-type, &.recon-break-by-counterparty {
+        .layergroup1 g rect.bar, .layergroup1 rect.bar {
+            fill: #d2c858;
+        }
+        .layergroup2 g rect.bar, .layergroup2 rect.bar {
+            fill: #781877;
+        }
+        .layergroup3 g rect.bar, .layergroup3 rect.bar {
+            fill: #0b8182;
+        }
+        .layergroup4 g rect.bar, .layergroup4 rect.bar {
+            fill: #F08724;
+        }
+    }
+
+    &.recon-break-by-counterparty {
+        .chart-labels {
+            text {
+                font-size: rem-calc(12px);
+                font-family: Proxima-Regular, Arial, sans-serif;
+            }
+        }
+    }
+
+    &.portfolio-attribution-by-position,
+    &.portfolio-attribution-by {
+        .horizontalBar {
+            text {
+                font-size: rem-calc(12px);
+                font-family: Proxima-Regular, Arial, sans-serif;
+            }
+        }
+    }
+}
+
+.expanded-chart .chart {
+    .axis .tick text {
+        font-size: rem-calc(16px);
+    }
+    .chart-labels {
+        text {
+            font-size: rem-calc(18px);
+            font-family: Proxima-Regular, Arial, sans-serif;
+        }
+    }
+    .horizontalBar {
+        text {
+            font-size: rem-calc(18px);
+            font-family: Proxima-Regular, Arial, sans-serif;
+        }
+    }
+}
+
+//chart table view
+.chart-table-view {
+    tr:nth-child(even) {
+        background: #263548
+    }
+    td {
+        padding: .4rem 0.5rem .4rem 0.5rem;
+        font-size: 1rem;
+    }
+}
+
+//chart animations (note: removed for now)
+//@keyframes bar-grow {
+//  0% {
+//    transform: translateY(500px);
+//  }
+//  100% {
+//    transform: translateY(0px);
+//  }
+//20}
+//
+//@-webkit-keyframes bar-grow {
+//  0% {
+//    transform: translateY(500px);
+//  }
+//  100% {
+//    transform: translateY(0px);
+//  }
+//}
+//
+//@keyframes bar-grow-horizontal {
+//  0% {
+//    transform: translateX(-800px);
+//  }
+//  100% {
+//    transform: translateX(0px);
+//  }
+//}
+//
+//
+//@-webkit-keyframes bar-grow-horizontal {
+//  0% {
+//    transform: translateX(-800px);
+//  }
+//  100% {
+//    transform: translateX(0px);
+//  }
+//}
+
+//legend colors
+.legend {
+    overflow: hidden;
+    text-indent: -99px;
+    height: 5px;
+    position: relative;
+    top: 5px;
+}
+
+.legend.teal {
+    background: #0b8182;
+}
+
+.legend.purple {
+    background: #781877;
+}
+
+// ------------------ Investors  ------------------
+
+.investors {
+    //adjust spacing for top panel
+    .panel.overview {
+        margin-top: 7px;
+        margin-bottom: 20px;
+    }
+    //wrap long investor names
+    h2 {
+        word-break: break-word;
+    }
+
+    .filters {
+        //tabs for top of parameter columns
+        .parameter-tabs {
+            overflow: hidden;
+            margin-bottom: 0;
+            margin-top: 5px;
+            display: flex;
+            align-items: stretch;
+            li {
+                padding: 3%;
+                line-height: 120%;
+                font-family: Proxima-Semi-Bold;
+                color: $silver;
+                cursor: pointer;
+                flex: 1 1 0;
+            }
+            li.active {
+                background: $panel-bg;
+                color: $white;
+            }
+        }
+        .investor-acc-name {
+            color: $white;
+            font-size: rem-calc(16px); //font-size: 1.2rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: block;
+        }
+    }
+    .see-also {
+        strong {
+            color: $smoke;
+        }
+    }
+    .details {
+        .entry {
+            margin-bottom: 15px;
+            /*overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;*/
+
+            h2 {
+                color: $white;
+                font-size: rem-calc(22px); //font-size: 1.6rem;
+                margin-bottom: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .currency {
+                font-size: rem-calc(19px); //font-size: 1.5rem;
+            }
+            .email-address {
+                text-transform: lowercase;
+            }
+            //align items vertically within Foundation grid
+            &.tax-state {
+                margin-top: 53px;
+            }
+            &.alt-address {
+                margin-top: 34px;
+            }
+        }
+        strong {
+            display: block;
+            color: $smoke;
+        }
+        li {
+            color: $silver;
+            cursor: pointer;
+            position: relative;
+            padding-left: 25px;
+            height: 30px;
+            &.active {
+                color: $white;
+                cursor: auto;
+                &:before {
+                    background: $white;
+                }
+            }
+            &:before {
+                content: "";
+                position: absolute;
+                top: 4px;
+                left: 0px;
+                width: 10px;
+                height: 10px;
+                background: #666d76;
+                border-radius: 10px;
+                z-index: 10;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                top: 4px;
+                left: 4.2px;
+                width: 1px;
+                height: 30px;
+                background: #666d76;
+                z-index: 9;
+            }
+            &:last-child:after {
+                height: 10px;
+            }
+        }
+        &.no-panel {
+            padding: $panel-padding;
+        }
+    }
+    .currencies {
+        h4, span {
+            font-size: 1.2rem;
+            float: left;
+        }
+        h4 {
+            color: $silver;
+            cursor: pointer;
+            &.active {
+                color: $white;
+            }
+        }
+        .currencyDropDown {
+            width: 250px;
+        }
+    }
+    .table-investors, .table-investorAccounts, .table-legalEntityInvestorAccounts {
+        th {
+            cursor: pointer;
+        }
+        tbody tr td:first-child {
+            color: $silver;
+            cursor: pointer;
+        }
+    }
+
+    .table-leia, .table-account, .table-investor {
+        table-layout: fixed;
+        tr td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        //right align totals
+        td:last-child, th:last-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+    }
+    table[class*='table-FUNDS_'], .table-leiaHoldings {
+        td:last-child, th:last-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+    }
+
+    .table-leiaHoldings {
+        th.shares,
+        th.navShare,
+        th.marketValueBalance {
+            text-align: right;
+        }
+        th.lastFinalNav,
+        th.currency {
+            text-align: center;
+        }
+    }
+
+    .investor-table-name {
+        margin-bottom: 20px;
+    }
+
+    .investors-nav-locator {
+        li {
+            position: relative;
+            color: $smoke;
+            cursor: default;
+            line-height: 1rem;
+            text-transform: uppercase;
+            &.enabled {
+                cursor: pointer;
+                color: $silver;
+            }
+        }
+    }
+    //aligns search results back button with title
+    .button-vertical-align {
+        margin-top: 13px;
+    }
+    .card-toggle {
+        margin-top: 20px;
+        .fa {
+            color: $smoke;
+            &.active {
+                color: $white;
+                cursor: auto;
+            }
+        }
+    }
+    /*.see-also-legal {
+    position:relative;
+    top:120px;
+    margin-left:4rem;
+  }*/
+
+    .table-header.unlock {
+        justify-content: flex-end;
+    }
+}
+
+// ------------------ Investor Dashboard  ------------------
+
+.investor-dashboard {
+    h3 > a {
+        font-size: 1rem;
+    }
+    .view-options {
+        label, select {
+            float: left;
+            margin-right: 2rem;
+        }
+        select {
+            width: 14rem;
+        }
+        label {
+            padding-top: .2rem;
+        }
+    }
+    .document-list {
+        .panel {
+            padding: 0.2rem;
+            margin-bottom: 0.2rem;
+            color: $silver;
+            overflow: hidden;
+            strong {
+                font-size: rem-calc(24px);
+                margin-right: 5%;
+                display: block;
+                width: 40%;
+                text-align: right;
+                float: left;
+            }
+            span {
+                display: block;
+                width: 55%;
+                float: left;
+                line-height: 2.8rem;
+            }
+            //All documents
+            &:last-child {
+                padding: 0.4rem 0.2rem 0.4rem 0.2rem;
+                strong {
+                    font-size: 1rem;
+                    position: relative;
+                    top: 6px;
+                }
+                span {
+                    line-height: 2.2rem;
+                    font-size: 0.8rem;
+                    font-family: Proxima-Semi-Bold;
+                }
+            }
+        }
+    }
+
+    .cap-activity-legend {
+        @extend .chart-legend;
+        margin-top: 20px;
+        div.inflow::before {
+            background: #3db879;
+        }
+        div.outflow::before {
+            background: $red;
+        }
+        div.pending-inflow::before {
+            background: #2f695b;
+        }
+        div.pending-outflow::before {
+            background: #763138;
+            background: #763138;
+        }
+    }
+    //align search with table header
+    .search-input {
+        margin-right: 1.1538461538rem;
+    }
+
+    //investment manager cards
+    .card {
+        background:$jet url(../../img/bg-card.png) no-repeat top right;
+        width: 260px;
+        padding: 20px;
+        color: #939393;
+        border: 1px solid $body-bg;
+        cursor: pointer;
+        -webkit-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+        &:hover {
+            border: 1px solid $silver;
+            background: $panel-bg;
+        }
+        .card-header {
+            //border-bottom:1px solid $smoke;
+            height: 65px;
+            margin-bottom: 20px;
+            font-size: rem-calc(22px); //font-size: 1.65rem;
+            color: $silver;
+            font-family: Proxima-Regular;
+            line-height: 1.8rem;
+            position: relative;
+            img {
+                width: 260px;
+                height: auto;
+                top: -20px;
+                left: -20px;
+                position: relative;
+                max-width: 260px;
+            }
+        }
+        .card-body {
+            strong {
+                color: $smoke;
+                text-transform: uppercase;
+                font-family: Proxima-Bold;
+                position: relative;
+                top: 5px;
+            }
+            .value {
+                font-size: rem-calc(22px); //font-size: 1.6rem;
+                font-family: Proxima-Semi-Bold;
+                color: #cecece;
+            }
+            .currency {
+                display: block;
+                margin-top: -12px;
+                font-size: rem-calc(15px); //font-size: 1.3rem;
+                color: #cecece;
+            }
+            .date {
+                font-size: 0.8rem;
+            }
+            .pending {
+                margin-top: 30px;
+            }
+            .unread {
+                margin-top: 20px;
+            }
+            .unread-documents {
+                overflow: hidden;
+                margin-top: 10px;
+                .category {
+                    color: $silver;
+                    overflow: hidden;
+                    padding: 0.2rem;
+                    strong {
+                        display: block;
+                        width: 30%;
+                        text-align: right;
+                        margin-right: 5%;
+                        float: left;
+                        color: $silver;
+                        top: 0;
+                        font-size: rem-calc(14px);
+                    }
+                    span {
+                        display: block;
+                        width: 65%;
+                        float: left;
+                        font-size: rem-calc(14px);
+                    }
+                }
+                .category:nth-child(2) {
+                    background: $panel-bg;
+                }
+                .fa {
+                    margin-right: 5px;
+                }
+            }
+
+        }
+        .card-footer {
+            text-transform: uppercase;
+            text-align: right;
+            margin-top: 25px;
+        }
+        //Sean chart styling
+        .capital-activity-bars {
+            clear: both;
+            background: $dark-blue;
+        }
+        .capital-activity-labels {
+            clear: both;
+            font-size: 0.8rem;
+        }
+        .pending-inflow-label {
+            float: left;
+            color: green;
+        }
+        .pending-inflow-bar {
+            height: rem-calc(10px);
+            display: inline-block;
+            background-color: #3db879;
+        }
+        .pending-outflow-label {
+            float: right;
+            color: red;
+        }
+        .pending-outflow-bar {
+            height: rem-calc(10px);
+            display: inline-block;
+            background-color: #cb3536;
+        }
+    }
+
+}
+
+// ------------------ Investor Holdings  ------------------
+
+.investment-manager-holdings-view {
+    .holdings-filter {
+        justify-content: flex-end;
+        .inactive {
+            border-right: 1px solid #cecece;
+            @extend .spacer-right;
+        }
+        label {
+            margin-left: 10px;
+            margin-right: 10px;
+            text-transform: capitalize;
+        }
+        input[type=checkbox], .fa-share-square-o {
+            margin-right: 5px;
+        }
+    }
+    .investor-accounts-grid {
+        margin-top: 40px;
+    }
+    .unread-documents {
+        .fa {
+            position: relative;
+            top: 0;
+        }
+    }
+    //stop this table from jittering on sort
+    .table-chart-table-view-ih-capital-activity-chart {
+        thead tr {
+            th {
+                width: 20%;
+            }
+        }
+    }
+    .currency-type {
+        color: $smoke;
+        text-transform: uppercase;
+        font-size: 90%;
+        span:first-child {
+            margin-right: 4px;
+        }
+        span:last-child {
+            color: $white;
+        }
+    }
+}
+
+// ------------------ Reports Center  ------------------
+
+.reports-center {
+    h2 {
+        text-transform: uppercase;
+    }
+    .select-reports {
+        width: 10%;
+        margin: 1.2rem 0rem 4rem 1.4rem;
+    }
+    h3 {
+        text-transform: uppercase;
+    }
+
+    h3.no-report-message {
+        color: $smoke;
+        padding-top: 20%;
+        font-family: Proxima-Regular;
+    }
+    em {
+        color: $smoke;
+    }
+    .view-tabs {
+        margin-top: 0;
+    }
+    .reports-validation {
+        .panel, .fa, li {
+            color: $red;
+        }
+    }
+    .reports-confirmation {
+        .panel {
+            position: relative;
+            background: $silver;
+            .fa-times-circle {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+                color: $dark-blue;
+            }
+        }
+    }
+    .table-reports {
+        tbody td:nth-child(4), thead th:nth-child(4) {
+        }
+        input {
+            pointer-events: none;
+        }
+    }
+    //temp styles until parameters column code is revised
+    .parameters.reports {
+        .panel {
+            padding-bottom: 0;
+        }
+        .active {
+            background: $silver;
+            label {
+                color: $white;
+            }
+            button {
+                background: $dark-blue;
+            }
+        }
+    }
+}
+
+// ------------------ Capital Activity  ------------------
+
+.capital-activity {
+    h3 {
+        text-transform: uppercase;
+    }
+    //expand for large fund names
+    button.direction-left {
+        margin-top: 10px;
+        width: 40%;
+    }
+    table.table-capActivitList {
+        table-layout: fixed;
+        tr td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        th:nth-child(8) {
+            //values weren't right aligned so I commented this out...
+            //text-align: right;
+        }
+    }
+    //interior table panel styling
+    tr .panel {
+        margin: 0;
+        background: transparent;
+        //padding-top:0;
+        //padding-bottom:0;
+        padding: 0;
+        //background: #263548;
+        color: $body-text;
+        section {
+            border-bottom: 1px solid #3f4751;
+            overflow: hidden;
+            padding: 16px 0px 0px 0px;
+            .note-container {
+                margin-bottom: 20px;
+            }
+            .section-header {
+                cursor: pointer;
+                span {
+                    margin-left: 2rem;
+                    margin-right: 2rem;
+                }
+            }
+            table {
+                margin-bottom: 0;
+                table {
+                    margin-top: 0;
+                }
+                tr.order-information th {
+                    color: $white;
+                }
+                th {
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                }
+                td, th {
+                    border: 0;
+                    padding-left: 0;
+                    padding-top: 0;
+                }
+            }
+            &:last-child {
+                border-bottom: 0;
+            }
+            &.summary-data {
+                div {
+                    float: left;
+                    margin-right: 2rem;
+                    overflow: hidden;
+                    margin-bottom: 20px;
+                    &:nth-child(n+7) {
+                        float: none;
+                        width: 100%;
+                    }
+                }
+                strong {
+                    display: block;
+                }
+            }
+            .investor-details-name {
+                margin-left: 154px;
+            }
+        }
+    }
+    .panel .fund-filter-toggle {
+        color: $silver;
+        margin-bottom: 20px;
+        position: relative;
+        @extend link-style;
+        .fa {
+            left: -15px;
+            top: 2px;
+            position: absolute;
+        }
+
+    }
+    .table-header {
+        .fa-share-square-o {
+            margin-left: 10px;
+        }
+    }
+}
+
+.chart.capital-activity {
+    .background {
+        fill: #212d3d;
+    }
+    .inflow {
+        fill: #3db879;
+    }
+    .outflow {
+        fill: #cb3536;
+    }
+    .pendingInflow {
+        fill: #2f695b;
+    }
+    .pendingOutflow {
+        fill: #763038;
+    }
+}
+
+.online-orders {
+    .order-placement-type {
+        width: 50%;
+        float: right;
+        margin-right: 0;
+        label {
+            float: left;
+            font-size: .8rem;
+            margin-top: 0.8rem;
+        }
+        select {
+            width: 20%;
+            float: left;
+            position: relative;
+        }
+        button {
+            position: relative;
+            top: -5px;
+            float: right;
+            width: 23%;
+        }
+    }
+    .order-tabs {
+        h3 {
+            float: left;
+        }
+    }
+    .summary-table {
+        color: #cecece;
+        strong {
+            display: block;
+            font-family: Proxima-Bold;
+            color: $white;
+        }
+        tr:hover {
+            background-color: transparent;
+        }
+    }
+    .order-history {
+        td {
+            padding: 0 0 0.2rem 0;
+            font-size: 0.9rem;
+            padding-left: 0.2rem;
+        }
+        th {
+            font-size: 1rem;
+        }
+    }
+    .disclaimer {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        width: 50%;
+        color: #939393;
+        line-height: 1.2rem;
+    }
+    section {
+        border-bottom: 1px solid #3f4751;
+        overflow: hidden;
+        padding: 20px 0px 20px 0px;
+        &:last-child {
+            border-bottom: 0;
+        }
+        table tr td {
+            color: #cecece;
+            padding: 0 0 1.5rem 0;
+        }
+    }
+    .details {
+        .row:first-child {
+            margin-bottom: 20px;
+        }
+        strong {
+            display: block;
+        }
+    }
+    .bank-details {
+        margin-top: -15px;
+        strong {
+            margin-top: 15px;
+        }
+    }
+    //Lets multiselect be visible
+    .table-header, row.table-header, .row .row.table-header {
+        overflow: visible;
+        .export {
+            position: relative;
+            top: 1px;
+            margin-right: 1rem;
+        }
+        .ms-all-component {
+            input[type=checkbox], .fa {
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+}
+
+// ------------------ Terms of Service ------------------
+
+.terms {
+    max-height: 150px;
+    overflow-y: scroll;
+    padding: .6rem 2rem .6rem .6rem;
+    background: $panel-bg;
+    strong {
+        display: block;
+        margin: 20px 0px 20px 0px;
+    }
+    .panel {
+        margin-bottom: 20px;
+    }
+}
+
+// ------------------ Fund Accounting  ------------------
+.fund-accounting.ie-browser {
+    //.chart-container{
+    //  box-sizing: border-box;
+    //  display: inline-block;
+    //  position: relative;
+    //  text-align: center;
+    //  width: 100%;
+    //  vertical-align: middle;
+    //}
+    //
+    //.chart-container svg{
+    //  box-sizing: border-box;
+    //  display: block;
+    //  position: absolute;
+    //  top: 0px;
+    //  left: 0px;
+    //  text-align: center;
+    //  width: 100%;
+    //}
+
+}
+
+.fund-accounting {
+    .export-data-date {
+        margin-bottom: 20px;
+        .date.picker {
+            min-width: 200px;
+        }
+        .right {
+            margin-right: 0px;
+            .fa-share-square-o {
+                margin-right: 10px;
+                margin-left: 5px;
+            }
+        }
+        a, label, span, .date.picker {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        //dealing with reactjs adding spans
+        span:first-child {
+            margin-right: 0px;
+        }
+        select {
+            padding-right: 2rem;
+        }
+    }
+    .section-content {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .portfolio-attribution {
+        color: #cecece;
+        .row {
+            margin-bottom: 15px;
+        }
+        strong {
+            text-transform: uppercase;
+            line-height: 1rem;
+            color: $smoke;
+            font-size: rem-calc(12px);
+        }
+        li {
+            padding-bottom: 0;
+            //adjust long&short spacing
+            .spacer-both {
+                margin-left: 0.4rem;
+                margin-right: 0.1rem;
+            }
+        }
+        h3 {
+            line-height: 1.1rem;
+            color: #cecece;
+            font-size: rem-calc(14px);
+            span:nth-child(2) {
+                color: #939393;
+            }
+        }
+        .gross {
+            font-size: rem-calc(17px);
+            line-height: 1.1rem;
+            text-transform: uppercase;
+        }
+        .value {
+            font-size: rem-calc(28px);
+        }
+        .date {
+            font-size: rem-calc(12px);
+            color: $smoke;
+        }
+    }
+    .panel {
+        color: $smoke;
+        h2, h3 {
+            color: $white;
+            font-family: Proxima-Regular;
+        }
+        h2.doc-count {
+            color: $silver;
+        }
+    }
+    .fund-sections-menu {
+        border-bottom: 1px solid $jet;
+        margin-top: 20px;
+        li h3 {
+            color: $silver;
+        }
+        li h3.active {
+            color: $white;
+        }
+    }
+    .chart-tasks {
+        font-family: Proxima-Semi-Bold;
+        text-transform: uppercase;
+        color: $silver;
+        margin-bottom: 15px;
+        height: 20px;
+        span, i {
+            margin-left: 0.2rem;
+            margin-right: 0.2rem;
+            cursor: pointer;
+            &:first-child {
+                margin-left: 0rem;
+            }
+        }
+        .fa-download {
+            border-right: 1px solid #cecece;
+            border-left: 1px solid #cecece;
+            width: 2.4rem;
+        }
+
+        .active {
+            color: $white;
+        }
+        span.text-filter.active {
+            color: $white;
+        }
+        //adds dividers between text changes on charts
+        span.text-filter::before {
+            content: "|";
+            margin-left: 0.2rem;
+            margin-right: 0.4rem;
+            color: $white;
+        }
+        span.text-filter:first-child::before {
+            content: "";
+            margin-left: 0rem;
+        }
+    }
+    //table fixed hack for long names, use this sparingly to avoid table layout issues...
+    table[class*='table-chart'] {
+        table-layout: fixed;
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    .scrollable-table-wrapper {
+        max-height: 600px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .totals {
+        h2 {
+            float: left;
+        }
+        .chart-tasks {
+            margin-left: 10px;
+            float: left;
+            margin-top: 7px;
+        }
+    }
+    //chart legends
+
+    #exclude {
+        padding-left: 0;
+    }
+
+    .disclaimer {
+        margin-top: 50px;
+    }
+
+    //legends padding on modal
+    .modal {
+        .fund-legend {
+            &.portfolio-attribution-by-position {
+                padding-right: 31px;
+            }
+            &.portfolio-attribution-by {
+                padding-right: 33px;
+            }
+            &.pnl-tracking {
+                padding-right: 24px;
+            }
+            &.break-by-type {
+                padding-right: 41px;
+            }
+            &.break-tracking {
+                padding-right: 58px;
+            }
+            &.breaks-by-counterparty {
+                padding-right: 9px;
+            }
+
+        }
+
+    }
+
+    //legends paddings to align with charts
+    .fund-legend {
+        &.portfolio-attribution-by-position {
+            padding-right: 20px;
+        }
+        &.portfolio-attribution-by {
+            padding-right: 20px;
+        }
+        &.pnl-tracking {
+            padding-right: 28px
+        }
+        &.break-by-type {
+            padding-right: 34px;
+        }
+        &.break-tracking {
+            padding-right: 56px;
+        }
+        &.breaks-by-counterparty {
+            padding-right: 9px;
+        }
+    }
+
+    .fund-legend {
+        @extend .legend-container;
+        //swap out the default color
+        div:before {
+            //background: #d2c858;
+        }
+        div:nth-child(1):before {
+            background: #d2c858;
+        }
+        div:nth-child(2):before {
+            background: #781877;
+        }
+        div:nth-child(3):before {
+            background: #0b8182;
+        }
+        div:nth-child(4):before {
+            background: #F08724;
+        }
+
+        div:nth-child(5) {
+            .diamond.horizontal {
+                margin-right: 3px;
+                padding-left: 2px;
+                height: 20px;
+                width: 20px;
+                background: transparent;
+
+                svg {
+                    width: 16px;
+                    height: 8px;
+                }
+            }
+            .diamond.vertical {
+                padding-left: 2px;
+                height: 20px;
+                width: 20px;
+                background: transparent;
+
+                svg {
+                    width: 16px;
+                    height: 8px;
+                    transform-origin: center center;
+                    transform: rotate(90deg);
+                }
+            }
+
+        }
+        &.portfolio-attribution-by-position,
+        &.portfolio-attribution-by,
+        &.pnl-tracking {
+            div:nth-child(1):before {
+                background: #781877;
+            }
+            div:nth-child(2):before {
+                background: #0b8182;
+            }
+
+            div:nth-child(3):before {
+                background: transparent;
+            }
+
+            div:nth-child(3) {
+                background: transparent;
+                .diamond.horizontal {
+                    margin-right: 3px;
+                    padding-left: 2px;
+                    height: 20px;
+                    width: 20px;
+                    background: transparent;
+
+                    svg {
+                        width: 16px;
+                        height: 8px;
+                    }
+                }
+                .diamond.vertical {
+                    padding-left: 2px;
+                    height: 20px;
+                    width: 20px;
+                    background: transparent;
+
+                    svg {
+                        width: 16px;
+                        height: 8px;
+                        transform-origin: center center;
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+
+    .fund-chart-tooltip {
+        position: absolute;
+        //width: 180px;
+        z-index: 1006;
+        background-color: #71a0d2;
+        color: #000;
+        padding: 7px 7px;
+        p {
+            padding: 0px;
+            margin: 0;
+            &.tooltip-title {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .view-fund-selector {
+        label {
+            float: left;
+            width: 20%;
+            line-height: 2.3;
+        }
+        .multi-select {
+            float: left;
+            width: 80%;
+        }
+    }
+    .table-chart-table-view-portfolio-attribution-by-position,
+    .table-chart-table-view-portfolio-attribution-by,
+    .table-chart-table-view-pnl-by-position,
+    .table-chart-table-view-pnl-attribution-by,
+    .table-chart-table-view-pnl-by-category,
+    .table-chart-table-view-pnl-tracking,
+    .table-chart-table-view-recon-break-by-type,
+    .table-chart-table-view-recon-break-by-counterparty,
+    .table-chart-table-view-recon-break-tracking {
+        tr td:last-child, tr th:last-child {
+            text-align: right;
+        }
+    }
+
+    .table-chart-table-view-portfolio-attribution-by {
+        .attributionPctLong {
+            text-align: right;
+        }
+        .absAttributionPctShort {
+            text-align: right;
+        }
+    }
+
+    .table-chart-table-view-pnl-tracking {
+        .trading {
+            text-align: right;
+        }
+    }
+
+    .table-chart-table-view-recon-break-by-type,
+    .table-chart-table-view-recon-break-by-counterparty {
+        .lessThan4Count,
+        .between4And30Count,
+        .lessThan3Count,
+        .between3And30Count,
+        .greaterThan30Count,
+        .ageNACount {
+            text-align: right;
+        }
+    }
+
+    .table-chart-table-view-recon-break-tracking {
+        .break0To2DaysCount,
+        .break3To30DaysCount,
+        .breakGreaterThan30DaysCount,
+        .breakAgeNACount {
+            text-align: right;
+        }
+    }
+
+    //now re-adjust some of the tables
+    .table-chart-table-view-recon-break-by-type, .table-chart-table-view-recon-break-by-counterparty {
+        tr th:last-child, tr td:last-child {
+            padding-right: 2%;
+        }
+    }
+
+    //Adjust modal text size and shift elements over to prevent clipping
+    //TODO: @Sean F, can you adjust the X/Y values on the modal only?
+    //SEAN F : Cant just push these around. It throws off the alignment between the axis and the
+    //.modal {
+    //    .row.pnl-tracking-modal {
+    //        .chart g.axis text {
+    //            transform: translate(20px,0px);
+    //        }
+    //
+    //        .chart .chart-grid-background {
+    //            transform: translate(25px,0px);
+    //        }
+    //        path {
+    //            transform: translate(27px,0px);
+    //        }
+    //    }
+    //}
+}
+
+// ------------------ Document Center  ------------------
+
+.document-center {
+    h3 {
+        text-transform: uppercase;
+    }
+    //keeps tables from wrapping and wrecking vertical alignment
+    .nowrap {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    tr.unpublished {
+        opacity: 0.8;
+        td {
+            color: $smoke;
+        }
+    }
+    //no top height for tabs
+    .view-tabs {
+        margin-top: 0;
+    }
+    .doc-filters {
+        //adjust padding for form elements
+        .panel {
+            padding-bottom: 0.4rem;
+        }
+    }
+    //set table layout to "fixed" to keep long content from wrapping
+    .table-documents,
+    .table-reports,
+    .table-brokerstatements,
+    .table-uploads,
+    .table-usage,
+    .table-capitalactivity,
+    .table-investordocs,
+    .table-publish {
+        table-layout: fixed;
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            &.unread {
+                font-family: Proxima-Semi-Bold;
+            }
+            &:first-child {
+                .fa-caret-down, .fa-caret-right {
+                    color: $silver;
+                }
+            }
+        }
+        .panel {
+            padding-left: 1%;
+        }
+        table {
+            table-layout: fixed;
+            ////adjust widths for document usage subgrid cells
+            th.non-sortable.control-cell {
+                width: 3%;
+            }
+        }
+    }
+
+    .table-brokerstatements {
+        tr td:first-child > input {
+            left: -3px;
+        }
+    }
+
+    //push over checkboxes at top level for all grids
+    .document-grid > tbody > tr > td:first-child {
+        text-align: center;
+    }
+
+    //table specific tweaks
+    .table-usage {
+        .usage:not(.subrow) td:first-child {
+            padding-left: 2rem;
+        }
+        td:last-child, th:last-child {
+            text-align: center;
+        }
+    }
+
+    //adjust subgrid alignment and table layouts
+    .subgrid-capitalactivity .panel {
+        padding-left: 6%;
+        table {
+            table-layout: fixed;
+            tr {
+                th:nth-child(n+3),
+                td:nth-child(n+3) {
+                    text-align: right;
+                }
+            }
+        }
+    }
+    .subgrid-usage-set {
+        .subgrid-usage-details div {
+            padding-left: 2%;
+        }
+        //match the table width
+        .table-header {
+            margin-left: 2%;
+            position: relative;
+            left: 1%;
+        }
+    }
+    .subgrid-uploads-details {
+        .panel {
+            padding-left: 2%;
+        }
+    }
+    .subgrid-usage-set {
+        .read, td:nth-child(2) {
+            cursor: default;
+        }
+    }
+
+    tr .panel {
+        margin-bottom: 0;
+        padding: 0.4rem 0.4rem 0rem 0.4rem;
+        background: transparent;
+        .details {
+            width: 65%;
+            margin-left: 3%;
+            td {
+                text-align: left;
+            }
+        }
+        table tr td {
+            padding: 0.2rem 1rem 0.2rem 0.2rem;
+            font-size: 1rem;
+        }
+        table tr td:first-child {
+            font-family: Proxima-Semi-Bold;
+            color: $white;
+        }
+    }
+    .table-doc-center {
+        dl {
+            font-size: 1.1rem;
+            dd {
+                clear: right;
+                margin-left: 6%;
+            }
+            dt {
+                float: left;
+                clear: left;
+                font-family: Proxima-Semi-Bold;
+                margin-left: 4%;
+                margin-right: 4%;
+                width: 10%;
+            }
+        }
+        td {
+            .fa {
+                color: $silver;
+            }
+            td .fa-eye {
+                color: $white;
+            }
+        }
+
+        td > table {
+            margin-left: 4%;
+        }
+    }
+    .table-header {
+        .download-button {
+            font-family: Proxima-Semi-Bold;
+            .fa-download {
+                margin-left: 10px;
+            }
+        }
+    }
+    .doc-upload-form {
+        margin-top: 30px;
+        ul, li {
+            list-style: square;
+            padding: 0.5rem;
+            margin-left: 0.3rem;
+        }
+        ul {
+            margin-top: 10px;
+        }
+        .upload-button {
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            input {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: rem-calc(20px);
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                z-index: 100;
+            }
+            label {
+                background: $silver;
+                padding: 1rem 2rem 0.9rem 2rem;
+                font-size: rem-calc(12);
+                width: 100%;
+                font-family: Proxima-Regular;
+                letter-spacing: 0.1rem;
+                text-transform: uppercase;
+                color: $white;
+                text-align: center;
+            }
+        }
+    }
+    .uploads .fa,
+    .usage .fa {
+        color: $white;
+    }
+    .usage:not(.subrow) td:first-child {
+        text-align: left;
+        padding-left: 3rem;
+    }
+    .usage .detail-field {
+        font-family: Proxima-Semi-Bold;
+        width: 160px;
+        display: inline-block;
+        text-align: left;
+    }
+    .link-cell .fa {
+        margin-left: 7px;
+        margin-right: 7px;
+
+        &.left-icon {
+            color: $white;
+            margin-left: 0;
+        }
+    }
+    //unpublished document rows
+    .status-unpublish {
+        color: $smoke;
+        td, .fa, td span.namecell {
+            color: $smoke;
+            opacity: 0.8;
+        }
+    }
+    .panel input + label {
+        color: $silver;
+        text-transform: capitalize;
+        font-family: Proxima-Regular;
+    }
+    .panel input + label.active {
+        //font-family: Proxima-Bold;
+    }
+    .error {
+        padding-bottom: 10px;
+    }
+    .no-data-message {
+        font-family: Proxima-Regular;
+        color: #cecece;
+    }
+}
+
+.document-center,
+.document-viewer {
+    table.uploads-detail:not(.right) {
+        width: 45%;
+        margin-left: 4%;
+        tr td {
+            padding: 5px;
+        }
+        tr td:first-child {
+            width: 20%;
+            text-align: left;
+        }
+    }
+    table.uploads-detail:not(.left) {
+        width: 50%;
+        tr td {
+            padding: 5px;
+            text-align: left;
+        }
+    }
+    table tr td.date,
+    table tr th.date {
+        text-align: right;
+        padding-right: 1rem;
+    }
+    i.fa-caret-plus {
+        width: 10px;
+        height: 10px;
+        background-color: #f00;
+        cursor: pointer;
+    }
+    i.fa-caret-minus {
+        width: 10px;
+        height: 10px;
+        background-color: #0f0;
+        cursor: pointer;
+    }
+    .subrow {
+        border-bottom: 1px solid $panel-bg;
+        background: transparent;
+    }
+    //IM logo
+    .im-logo {
+        width: 16px;
+        height: 16px;
+        line-height: 12px;
+        background: $smoke;
+        color: $dark-blue;
+        font-family: Proxima-Bold;
+        border-radius: 14px;
+        text-align: center;
+        display: inline-block;
+        &:before {
+            content: "IM";
+            font-size: 0.8rem;
+            text-align: center;
+            position: relative;
+            top: 2px;
+        }
+    }
+    // read/unread
+    td span.namecell {
+        color: $silver;
+        i.fa {
+            display: none;
+        }
+        &.unread {
+            span {
+                font-family: Proxima-Semi-Bold;
+            }
+            i.fa {
+                display: inline-block;
+                margin-right: 10px;
+                color: #fff;
+            }
+        }
+    }
+    thead.flat th {
+        padding: 0;
+    }
+}
+
+.error-popup {
+    min-height: 200px;
+}
+
+.panel.callout.meta-message {
+    width: 100%;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+
+    &.fade {
+        opacity: 0;
+    }
+}
+
+.form-legend {
+    line-height: 2rem;
+    color: $smoke;
+}
+
+//upload & publish documents modal contents
+.upload-documents {
+    .im-logo {
+        position: relative;
+        top: -3px;
+    }
+    .button-next {
+        margin-bottom: 0;
+    }
+    .modal-document-list {
+        background: #212c3c;
+        height: 450px;
+        overflow: auto;
+        table {
+            td {
+                padding: 1rem 0rem 1rem 0rem;
+                .fa {
+                    color: $silver;
+                }
+                select {
+                    width: 40%;
+                    margin-left: 1rem;
+                }
+            }
+            td:after {
+                content: "";
+                display: inline-block;
+                border-right: 1px solid $white;
+                padding: 0rem 0rem 0rem 1rem;
+                height: 1.2rem;
+                position: relative;
+                top: 0.2rem;
+                float: right;
+                right: 20%;
+            }
+            td:last-child:after, td:nth-child(4):after {
+                border-right: 1px solid #212c3c;
+                padding: 0;
+            }
+            td:nth-child(4) {
+                padding-top: 1.3rem;
+                padding-bottom: 0rem;
+            }
+        }
+        .panel {
+            background: #212c3c;
+        }
+    }
+    small {
+        color: $smoke;
+        margin-top: 1rem;
+        display: inline-block;
+    }
+    .pipe {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .batch-details {
+        .batch-details-header {
+            float: left;
+            &.text {
+                padding-right: 30px;
+            }
+        }
+        ul.batch-details-tabs {
+            margin: 5px 0;
+            padding: 0;
+            list-style: none;
+            font-family: Proxima-Semi-Bold;
+            li {
+                display: inline;
+                padding: 5px 10px;
+                color: $silver;
+                &.active {
+                    color: $white;
+                    cursor: default;
+                }
+                &:first-child {
+                    border-right: 1px solid $smoke;
+                }
+            }
+        }
+        .bulk-upload-list {
+            position: inherit;
+            margin-bottom: 0;
+            border-bottom: 3px solid #1b2634;
+            td {
+                position: relative;
+                vertical-align: middle;
+                margin: 0;
+                padding: 0px 0px 0px 15px;
+                strong {
+                    color: $smoke;
+                }
+            }
+            tr:nth-child(even) {
+                background: #1b2634;
+            }
+            label {
+                float: left;
+                margin-top: 20px;
+                text-transform: capitalize;
+                font-size: 1rem;
+            }
+            .multi-select {
+                float: left;
+                width: 50%;
+                margin-left: 2%;
+                margin-top: 15px;
+                .data .options {
+                    max-height: 100px;
+                }
+                .data hr {
+                    margin-bottom: 0;
+                }
+            }
+            .fa-user {
+                display: none;
+            }
+            tr.investor-changed {
+                background-color: rgba(113, 160, 210, 0.5);
+                .fa-user {
+                    display: inline-block;
+                    margin-top: 21px;
+                    margin-left: 20px;
+                    color: #fff;
+                }
+            }
+        }
+
+        div.batch-content {
+            margin-top: 10px;
+            overflow-y: scroll;
+            height: 400px;
+            padding-bottom: 300px;
+            ul {
+                li {
+                    clear: both;
+                }
+            }
+        }
+
+        div.batch-errors {
+            strong {
+                color: $smoke;
+            }
+            span.error {
+                font-size: 1rem;
+            }
+        }
+    }
+    .panel.callout {
+        margin-top: 20px;
+        padding-bottom: 5px;
+        width: 100%;
+    }
+    .preview-table {
+        tr th {
+            color: $silver;
+        }
+        td {
+            min-width: 130px;
+            padding: 0.2rem;
+        }
+        .details {
+            margin-left: 1rem;
+            td:first-child {
+                font-family: Proxima-Semi-Bold;
+            }
+        }
+    }
+}
+
+// ------------------ FUND METRICS -----------
+
+.fund-accounting-metrics {
+    .chart-icon-tooltip {
+        position: absolute;
+        width: 220px;
+        z-index: 1000;
+        background-color: #71a0d2;
+        color: #000;
+        padding: 7px 7px;
+        p {
+            padding: 0px;
+            margin: 0;
+            &.tooltip-title {
+                font-weight: bold;
+            }
+        }
+    }
+    .time-frame {
+        margin-bottom: 20px;
+    }
+
+    //assign color bars to the activity tables
+    .table-finalNavTable, .table-estimateNavTable {
+        th {
+            color: $smoke;
+        }
+        tr th span {
+            color: #939393;
+        }
+        tr td {
+            padding: 0.4rem;
+            vertical-align: top;
+        }
+        tr td:first-child {
+            position: relative;
+            padding-left: 35px;
+            &::before {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 20px;
+                z-index: 1;
+                left: 6px;
+                top: 10px;
+                background: $white;
+                height: 5px;
+
+            }
+        }
+        //status styles
+        tr.complete {
+            td {
+                color: #52667e;
+            }
+            td:first-child::before {
+                background: #52667e;
+            }
+        }
+        tr.late {
+            td {
+                color: #52667e;
+            }
+            td:first-child::before {
+                background: $red;
+                border: 1px solid $silver;
+            }
+        }
+        tr.overdue {
+            background-color: rgba(54, 40, 52, 0.6);
+            &:hover {
+                background-color: rgba(54, 40, 52, 1);
+            }
+            td:first-child {
+                color: $red;
+                &::before {
+                    background: $red;
+                }
+            }
+            &.row-active {
+                background-color: #2a3a4c;
+            }
+        }
+        tr.due {
+            td:first-child {
+                color: $aqua;
+            }
+            td:first-child::before {
+                background: $aqua;
+            }
+        }
+        tr.deliveredLate {
+            td {
+                color: #52667e;
+            }
+            td:first-child::before {
+                background: $red;
+                border: 2px solid #52667e;
+            }
+        }
+    }
+
+    table tr.row-active {
+        background-color: #2a3a4c;
+    }
+    /*
+    .section-toggle {
+        h3 {
+            margin-bottom: 0;
+        }
+        .fa {
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    }
+    */
+
+    //Legend TODO: Refactor to use @extend
+    .metrics-legend {
+        margin-bottom: 30px;
+        div {
+            float: left;
+            margin-left: 10px;
+            color: $smoke;
+            font-size: 0.8rem;
+            padding-left: 30px;
+            position: relative;
+            text-transform: uppercase;
+            &:before {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 20px;
+                z-index: 1;
+                margin-top: -3px;
+                left: 6px;
+                top: 50%;
+                background: #52667e;
+                height: 5px;
+            }
+            &.due::before {
+                background: #14c6e2;
+            }
+            &.overdue::before {
+                background: #c61a1a;
+            }
+            &.late::before, &.deliveredLate::before {
+                background: $red;
+                border: 2px solid #52667e;
+            }
+            &.scheduled::before {
+                background: $white;
+            }
+            &.today {
+                display: none;
+            }
+        }
+        .timezone-label {
+            float: none;
+            display: block;
+            margin-left: 15px;
+            padding-left: 0;
+            &:before {
+                content: none;
+            }
+        }
+    }
+
+    .metric-circle-container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .today-icon {
+        p {
+            font-size: rem-calc(9px);
+            font-weight: bold;
+            line-height: 1;
+            margin: -13px 0 0 0;
+            z-index: 1100;
+            color: #fff;
+        }
+
+    }
+
+    .metric-circle-wrapper {
+        width: 30px;
+        display: inline-block;
+        margin-right: 7px;
+        cursor: pointer;
+        -webkit-transition: opacity 0.2s linear;
+        transition: opacity 0.4s linear;
+        .outer-circle {
+            fill: #4d5e72;
+        }
+        .inner-circle {
+            fill: #1b2634;
+            &:hover {
+                fill: #39414E;
+            }
+        }
+        .checkmark {
+            fill: #4d5e72;
+        }
+        .due {
+            .outer-circle {
+                fill: #14c6e2;
+            }
+        }
+        .overdue {
+            .outer-circle {
+                fill: #e32f38;
+            }
+        }
+        .scheduled {
+            .outer-circle {
+                fill: $smoke;
+            }
+        }
+        &.deliveredLate {
+            .checkmark {
+                fill: #e32f38;
+            }
+        }
+        .triangle {
+            fill: #e32f38;
+        }
+        .today {
+            .outer-circle,
+            .inner-circle {
+                display: none;
+            }
+            text {
+                font-size: rem-calc(12px);
+                fill: #fff;
+            }
+        }
+        .todayIcon {
+            fill: #fff;
+        }
+        .tooltip-wrapper .tooltip {
+            display: block;
+        }
+    }
+
+    .parameter-tabs {
+        ul {
+            display: flex;
+            margin-bottom: 0;
+            li {
+                padding: 0 0.2rem;
+                line-height: 120%;
+                font-family: Proxima-Semi-Bold;
+                div {
+                    color: $silver;
+                    margin: 0.8rem;
+                    min-height: 30px;
+                    max-width: 80%;
+                }
+                &:last-child {
+                    div {
+                        border-right: 0;
+                    }
+                }
+            }
+            li.active {
+                background: $panel-bg;
+                div {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    .filter-group {
+        overflow: hidden;
+        margin-bottom: 20px;
+        .filter-label {
+            color: #939393;
+        }
+    }
+
+    .metric-section-header h3 {
+        //color: #cecece;
+    }
+
+    .exclamation {
+        fill: #e32f38;
+    }
+
+    //Recon Activity by Day Chart
+    .recon-activity-by-day {
+        .background {
+            fill: #212d3d;
+        }
+        //.axis .tick line{
+        //    opacity: 1;
+        //    stroke: #1a2634;
+        //    stroke-width: 2px;
+        //}
+
+        .line-bar-plot {
+            stroke: red;
+        }
+        .line-bar-plot.cash {
+            stroke: #45bb87;
+            stroke-width: 2px;
+            opacity: .3;
+        }
+        .line-bar-plot.position {
+            stroke: #98999e;
+            stroke-width: 2px;
+            opacity: .3;
+        }
+        .line-bar-plot.now {
+            //stroke: #0d1520;
+            stroke: #fff;
+            stroke-width: 1px;
+            stroke-dasharray: 6 6;
+            opacity: .6;
+        }
+        .chart-label {
+            text {
+                font-size: 0.8rem;
+                fill: #cecece;
+                .disabled {
+                    fill: #212d3d;
+                }
+            }
+        }
+        .vertical-bar-label {
+            text-anchor: middle;
+            font-size: 0.8rem;
+            &.cash {
+                fill: #3cb878;
+            }
+            &.position {
+                fill: #939393;
+            }
+            &.now {
+                fill: #fff;
+            }
+        }
+        .cp-label {
+            text-anchor: end;
+            tspan {
+                font-size: rem-calc(9px);
+            }
+        }
+        .metric-circle-wrapper {
+            .arc {
+                fill: #4d5e72;
+            }
+            .due,
+            .complete-due,
+            .due-due,
+            .deliveredLate-due,
+            .due-overdue {
+                fill: #14c6e2;
+            }
+            .overdue {
+                fill: #e32f38;
+                .outer-circle {
+                    fill: #e32f38;
+                }
+            }
+            .scheduled {
+                .outer-circle {
+                    fill: $smoke;
+                }
+            }
+            &.complete-deliveredLate {
+                .checkmark-bottom {
+                    fill: #e32f38;
+                }
+            }
+            &.deliveredLate-deliveredLate {
+                .checkmark-top {
+                    fill: #e32f38;
+                }
+                .checkmark-bottom {
+                    fill: #e32f38;
+                }
+            }
+            &.deliveredLate-overdue {
+                .exclamation {
+                    fill: #e32f38;
+                }
+            }
+            &.deliveredLate-due {
+                .checkmark {
+                    fill: #e32f38;
+                }
+            }
+        }
+    }
+}
+
+// ------------------ IM Dashboard Styles -----------
+
+.dashboard {
+    .recon-headers {
+        h3 {
+            line-height: 1.4rem;
+            //line up with donus charts below
+            margin-left: 20%;
+        }
+    }
+    .table-IMListViewTable {
+        td:not(:first-child), th:not(:first-child) {
+            text-align: right;
+        }
+        td:last-child, th:last-child {
+            padding-right: 10px;
+        }
+    }
+    .fund-panel {
+        overflow: hidden;
+        position: relative;
+        padding: 15px 10px 20px 10px;
+        .fa-expand, .fa-compress {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        &.active {
+            background: #2c3e54;
+        }
+        label {
+            font-size: rem-calc(14px); //font-size: 1.15rem;
+            color: #cecece;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+        //nav production overrides
+        .fund, .fund:hover, .fund:hover:not(.active) {
+            background: transparent;
+            padding: 0;
+            border: 0;
+            min-height: auto;
+        }
+        &:hover {
+            background: #2c3e54;
+        }
+    }
+    .parameter-tabs {
+        span:last-child:after {
+            content: " ";
+        }
+        span:after {
+            content: " | ";
+            margin-left: 5px;
+        }
+    }
+    .panel.status {
+        background: #27384b;
+        position: relative;
+        padding-top: 45px;
+        font-size: 90%;
+        position: relative;
+        top: -6px;
+
+        //make is scrollable
+        max-height: 330px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .end-group {
+            padding-bottom: 20px;
+            border-bottom: 1px solid $dark-blue;
+        }
+        .schedule-totals {
+            background: #2c3e54;
+            color: $smoke;
+            height: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            line-height: 40px;
+            margin-left: 0rem;
+            width: 100%;
+            .fa {
+                position: relative;
+                top: 13px;
+                cursor: pointer;
+            }
+            .close {
+                text-align: right;
+                .fa {
+                    top: 0;
+                }
+            }
+        }
+        .element {
+            line-height: 1.2rem;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 20px;
+                z-index: 1;
+                margin-top: -3px;
+                left: 15px;
+                top: 50%;
+                background: #3cb878;
+                height: 5px;
+            }
+            span {
+                margin-left: 25px;
+                display: inline-block;
+            }
+        }
+        .header {
+            margin-top: 15px;
+            strong {
+                color: $white;
+                font-family: Proxima-Semi-Bold;
+            }
+        }
+        //change the color of the status elements
+        &.overdue {
+            .element:before {
+                background: $red;
+            }
+        }
+        &.due {
+            .element:before {
+                background: #d2c858;
+            }
+        }
+        &.scheduled {
+            .element:before {
+                background: #263548;
+            }
+        }
+    }
+}
+
+.tab-filter {
+    display: inline-block;
+}
+
+.nav-production-filters {
+    font-family: Proxima-Semi-Bold;
+    text-transform: uppercase;
+    color: $silver;
+    span.filter-label {
+        text-transform: none;
+        color: $smoke;
+        font-family: Proxima-Regular;
+    }
+    .view-fund {
+        margin-left: 2rem;
+    }
+    span, i {
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+        //cursor: pointer;
+    }
+    .active {
+        color: $white;
+    }
+    span.text-filter.active {
+        color: $white;
+    }
+    //adds dividers between text changes on charts
+    span.text-filter::before {
+        content: "|";
+        margin-left: 0.2rem;
+        margin-right: 0.4rem;
+        color: $white;
+    }
+    span.text-filter:first-child::before {
+        content: "";
+        margin-left: 0rem;
+    }
+}
+
+.investment-manager {
+
+    .fund-overview-container {
+        margin-top: 60px;
+        .overview-title {
+            margin-bottom: 20px;
+        }
+        .table-header {
+            padding-top: 7px;
+            margin-top: 20px;
+            input {
+                margin-bottom: 0;
+            }
+            .fa {
+                margin-left: 10px;
+                margin-top: 2px;
+            }
+        }
+        .unread-documents-icon {
+            color: #71a0d2;
+        }
+        .legal-entity-card .card {
+            margin-top: 0px;
+            background:$jet url(../../img/bg-card.png) no-repeat top right;
+            color: #939393;
+            border: 1px solid $body-bg;
+            cursor: pointer;
+            -webkit-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+            &:hover {
+                border: 1px solid $silver;
+                background:$jet url(../../img/bg-card.png) no-repeat top right;
+                opacity: 0.9;
+            }
+            &:before, &:after {
+                display: none;
+            }
+            .card-header {
+                padding: 20px;
+                background: transparent;
+            }
+            .card-body {
+                background: $panel-bg;
+            }
+            .category, .capital-activity-bars {
+                background: #212c3c;
+            }
+        }
+        &.legal {
+            //remove multi card look for legal entities
+            .card:before, .card:after {
+                display: none;
+            }
+        }
+    }
+
+    .fund-overview-legal-view {
+        h1 {
+            color: $white;
+        }
+        strong {
+            color: #939393;
+            display: block;
+        }
+        .positive-negative {
+            .negative {
+                color: $red;
+            }
+            .positive {
+                color: #3db879;
+            }
+        }
+    }
+
+    .table-header {
+        overflow: hidden;
+    }
+
+    //holdings more vertical space between sections
+    hr {
+        margin: 3rem 0 3rem;
+    }
+
+    .show-by-filter {
+        .parameter-tabs {
+            .le {
+                border: none;
+            }
+        }
+    }
+
+    .table-IMListViewTable {
+        tr td:first-child {
+            @extend .link-style;
+        }
+        .positive {
+            color: #3cb878;
+            margin-right: 4px;
+        }
+        .negative {
+            color: $red;
+            margin-right: 4px;
+        }
+    }
+
+    .table-spcTreeFilter {
+        thead {
+            display: none;
+        }
+        tr td {
+            color: $silver;
+            background: transparent;
+        }
+        td div {
+            border-bottom: 1px solid #263548;
+            margin-left: 15px;
+            p {
+                margin-top: 0.6rem;
+                margin-bottom: 0.6rem;
+            }
+        }
+    }
+
+    .holding-details {
+        h2 {
+            font-size: rem-calc(30px);
+            color: #cecece;
+            margin-top: -15px;
+            font-family: Proxima-Semi-Bold;
+            margin-bottom: 0;
+        }
+        h2 + small {
+            color: $smoke;
+        }
+        h3 {
+            text-transform: uppercase;
+        }
+        .balance {
+            text-transform: uppercase;
+            font-family: Proxima-Semi-Bold;
+            color: $smoke;
+            letter-spacing: .06rem;
+            &.data {
+                color: #cecece;
+            }
+        }
+        button {
+            width: 20%;
+            margin-right: 10px;
+        }
+        .document-count {
+            padding: .4rem;
+            color: $silver;
+            strong {
+                font-size: rem-calc(24px);
+                display: inline-block;
+                @extend .spacer-both;
+                width: 15%;
+            }
+            &:nth-child(odd) {
+                background:$jet;
+            }
+        }
+    }
+
+    //Holdings
+    strong.totals {
+        font-size: rem-calc(20px);
+    }
+    span.currency {
+        font-size: rem-calc(14px);
+        @extend .spacer-right;
+    }
+    .logo-details {
+        margin-top: 20px;
+        img {
+            margin-right: 2rem;
+            width: 185px;
+            height: 165px;
+        }
+        div.left {
+            width: 70%;
+        }
+    }
+    .total-value, .zero-balance {
+        position: relative;
+        top: 18px;
+    }
+    .zero-balance {
+        top: 28px;
+    }
+    //my fund cards
+    .fund {
+        background: $panel-bg;
+        min-height: 115px;
+        padding: 20px;
+        font-size: rem-calc(14px);
+        font-family: Proxima-Semi-Bold;
+        position: relative;
+        border: 1px solid $body-bg;
+        -webkit-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+        &.has-details {
+            cursor: pointer;
+            label {
+                cursor: pointer;
+            }
+        }
+        &:hover:not(.active) {
+            border: 1px solid $silver;
+            background: lighten($panel-bg, 5);
+
+        }
+        .name {
+            margin-bottom: 10px;
+        }
+        strong {
+            display: block;
+            color: $silver;
+            font-size: rem-calc(20px);
+            .currency {
+                font-size: rem-calc(14px);
+                position: relative;
+                left: 5px;
+            }
+        }
+        small {
+            color: $smoke;
+            font-size: 80%;
+            font-family: Proxima-Regular;
+        }
+        &.active {
+            background: #2c3e54;
+            border-bottom: 2px solid $white;
+            strong {
+                color: $white;
+            }
+            &:before {
+                top: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(255, 255, 255, 0);
+                border-top-color: #fff;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+        }
+        label {
+            cursor: default;
+        }
+    }
+
+    //align search with table header
+    .search-input, .clear-text-input {
+        margin-right: 1.1538461538rem;
+    }
+    //fund and legal cards
+    .card {
+        position: relative;
+        font-size: 0.9rem;
+        margin-top: 30px;
+        width: 90%;
+        cursor: pointer;
+        border: 1px solid $body-bg;
+        -webkit-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+        &:hover {
+            border: 1px solid $silver;
+            opacity: 0.8;
+        }
+        .card-header {
+            background: $panel-bg;
+            padding: 15px;
+            font-size: rem-calc(20px); //font-size: 1.6rem;
+            color: $white;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-body {
+            padding: 25px 20px 20px 20px;
+            background:$jet;
+            color: $smoke;
+            .value {
+                color: $white;
+                font-size: rem-calc(20px); //font-size: 1.6rem;
+                margin-right: .4rem;
+            }
+            .currency {
+                font-size: rem-calc(16px); //font-size: 1.3rem;
+                color: $white;
+                margin-top: -10px;
+            }
+            .pending, .unread {
+                margin-top: 20px;
+            }
+            a {
+                font-family: Proxima-Semi-Bold;
+            }
+            .category {
+                background: $panel-bg;
+                //background:$body-bg;
+                margin-top: 3px;
+                overflow: hidden;
+                color: $silver;
+                padding: 0.4rem;
+                font-size: rem-calc(14px); //font-size: 1.1rem;
+                &:hover {
+                    color: $white;
+                }
+                strong {
+                    float: left;
+                    display: block;
+                    width: 15%;
+                    padding-right: 3%;
+                }
+                span {
+                    float: left;
+                    display: block;
+                    width: 82%;
+                }
+            }
+            .pending-inflow-label {
+                color: #3cb878;
+                font-family: Proxima-Semi-Bold;
+                width: 50%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                float: left;
+            }
+            .pending-outflow-label {
+                color: $red;
+                float: right;
+                font-family: Proxima-Semi-Bold;
+                width: 50%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .pending-inflow-bar {
+                height: rem-calc(10px);
+                float: left;
+                background-color: #3db879;
+            }
+            .pending-outflow-bar {
+                height: rem-calc(10px);
+                float: left;
+                background-color: #cb3536;
+            }
+            .capital-activity-bars {
+                background: $panel-bg;
+                height: 10px;
+                overflow: hidden;
+            }
+            .capital-activity-labels {
+                overflow: hidden;
+                clear: both;
+            }
+        }
+        .card-footer {
+            margin-top: 30px;
+            text-align: right;
+        }
+        &:before, &:after {
+            content: "";
+            margin-left: 1px;
+            height: 98%;
+            background: $panel-bg;
+            width: 2px;
+            position: absolute;
+            right: -4px;
+            margin-top: 4px;
+        }
+        &:after {
+            right: -8px;
+            margin-top: 8px;
+            height: 96%;
+            top: 0px;
+        }
+    }
+
+    .panel {
+        background: #212c3c;
+        &:hover {
+            .fa-expand {
+                display: block;
+            }
+        }
+        .fa-expand {
+            display: none;
+        }
+        &.active {
+            background: #2c3e54;
+            .fa-expand {
+                display: block;
+            }
+        }
+    }
+
+    .nav-drawer {
+        //removes Foundation's row spacing for this area
+        &.scrollable-drawer {
+            max-height: 384px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0px;
+
+            //-webkit-animation: growDrawerHeightAnimation 1s; /* Safari 4+ */
+            //-moz-animation:    growDrawerHeightAnimation 1s; /* Fx 5+ */
+            //-o-animation:      growDrawerHeightAnimation 1s; /* Opera 12+ */
+            //animation:         growDrawerHeightAnimation 1s;
+        }
+        //top:-6px;
+        .panel {
+            background: #2c3e54;
+
+        }
+        //Override investor default styles when used in a drawer
+        .parameter-tabs {
+            li.fund {
+                background: transparent;
+                font-size: rem-calc(13px);
+                font-family: Proxima-Semi-Bold;
+                position: relative;
+                min-height: 1px;
+                padding: 0;
+                &:hover {
+                    border: 0px;
+                }
+                &:before {
+                    border: 0;
+                }
+            }
+
+        }
+        .header-row {
+            font-size: rem-calc(14px);
+            strong:last-child {
+                color: $white;
+            }
+        }
+
+    }
+
+    .dashboard-layout-headers {
+        margin-top: 20px;
+        h3 {
+            color: #cecece;
+        }
+    }
+    //Nav Production
+    .nav-production-section {
+
+        .fund span {
+            -webkit-transition: width 1s ease-in-out;
+            display: inline-block;
+            height: 20px;
+        }
+        .status {
+            display: inline-block;
+            width: 20px;
+            height: 6px;
+            background: #263548;
+        }
+        .complete {
+            background-color: #3db879;
+        }
+        .due {
+            background-color: #d2c858;
+        }
+        .overdue {
+            background-color: #cb3535;
+        }
+        .scheduled {
+            background-color: #263548;
+        }
+        .drawer-table {
+            width: 85%;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            tr th {
+                color: $smoke;
+                font-size: 100%;
+                padding-bottom: 0;
+                &:last-child, &:nth-child(3) {
+                    //text-align: right;
+                    padding-right: 2rem;
+                }
+            }
+            tr td {
+                padding: 0.4rem 2rem 0.4rem 0.4rem;
+                line-height: 2rem;
+
+                &:last-child, &:nth-child(3) {
+                    //text-align: right;
+                }
+            }
+            tr td:first-child {
+                padding-right: 0;
+                width: 30px;
+            }
+            &.recon {
+                margin-top: 20px;
+                width: 100%;
+                table-layout: fixed;
+
+                thead {
+                    th:nth-child(1) {
+                        width: 41%;
+                    }
+                    th:nth-child(2) {
+                        width: 25%
+                    }
+                    th td:nth-child(3) {
+                        width: 34%;
+                    }
+                }
+
+                td:nth-child(2) {
+                    white-space: nowrap;
+                }
+                &:last-child {
+                    margin-right: 0%;
+                }
+
+                tr td {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+            }
+        }
+    }
+
+    //Recon Donut Charts
+    .recon-section {
+        //matching heights of the side by side panels
+        min-height: 91px;
+        max-height: 91px;
+        overflow: hidden;
+        position: relative;
+        .fa-expand, .fa-compress {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .donut {
+            height: 60px;
+            float: left;
+            margin-left: 15%;
+            width: 60px;
+        }
+        span {
+            line-height: 60px;
+            margin-left: 1rem;
+            color: $white;
+            font-family: Proxima-Semi-Bold;
+        }
+        .complete {
+            fill: #3cb878;
+        }
+        .inprogress {
+            fill: #2f695b;
+        }
+        .scheduled {
+            fill: #263548;
+        }
+        .panel {
+            padding: 1rem;
+            height: 91px;
+        }
+        .panel:hover {
+            background: #2c3e54;
+        }
+    }
+    .nav-status-recon {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: $smoke;
+        font-family: Proxima-Semi-Bold;
+        font-size: 80%;
+        img {
+            margin-right: 0.4rem;
+            margin-left: 0.4rem;
+        }
+    }
+    .nav-status-legend {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        div {
+            margin-right: 1rem;
+            background: $silver;
+            padding: 0.4rem 1rem 0.4rem 2.4rem;
+            height: 18px;
+            overflow: hidden;
+            float: left;
+            line-height: .7rem;
+            position: relative;
+            cursor: pointer;
+            color: $white;
+            -webkit-transition: all 0.2s linear;
+            transition: all 0.2s linear;
+            &.active {
+                background: #2c3e54;
+                padding-bottom: 2.4rem;
+                &::before {
+                    margin-top: -13px;
+                }
+            }
+            &:hover {
+                background: #2c3e54;
+            }
+            &::before {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 20px;
+                z-index: 1;
+                margin-top: -3px;
+                left: 6px;
+                top: 50%;
+                background: #3cb878;
+                height: 5px;
+            }
+            &.due::before {
+                background: #d2c858;
+            }
+            &.scheduled:before {
+                background: #263548;
+            }
+            &.overdue::before {
+                background: $red;
+            }
+        }
+
+    }
+}
+
+//drawer animation
+.slide-down-drawer-appear {
+    transform: translateY(-100%);
+}
+
+.slide-down-drawer-appear.slide-down-drawer-appear-active {
+    transform: translateY(0%);
+    transition: transform .6s ease-in;
+}
+
+.transitionHeight {
+    overflow: hidden;
+    position: relative;
+    top: -6px;
+}
+
+// ------------------ IM HOLDINGS PAGE ------------------
+
+.investment-manager-holdings-view {
+    .fund-chart-tooltip {
+        position: absolute;
+        //width: 180px;
+        z-index: 1006;
+        background-color: #71a0d2;
+        color: #000;
+        padding: 7px 7px;
+        p {
+            padding: 0px;
+            margin: 0;
+            &.tooltip-title {
+                font-weight: bold;
+            }
+        }
+    }
+    .chart-actions {
+        .fa-list {
+            margin-right: .5rem;
+            margin-left: .5rem;
+            padding-right: 1.5rem;
+            margin-bottom: 10px;
+            border-right: 1px solid $smoke;
+            width: 25px;
+            //&:after {
+            //    content:"|";
+            //    color:$smoke;
+            //    margin-left:.5rem;
+            //    font-size: 80%;
+            //    position: relative;
+            //    top:-2px;
+            //}
+        }
+    }
+    .table-IMHInvestorAccountGrid {
+        thead tr th {
+            &:first-child {
+                padding-left: 1rem;
+            }
+            &:last-child {
+                text-align: center;
+            }
+        }
+        tbody tr td {
+            &:last-child {
+                text-align: center;
+            }
+        }
+        .marketValue,
+        .ownership,
+        .shares {
+            text-align: right;
+        }
+    }
+
+    .table-chart-table-view-ih-capital-activity-chart {
+        th.inflow,
+        th.outflow,
+        th.pendingInflow,
+        th.pendingOutflow {
+            text-align: right;
+        }
+    }
+
+    .date.picker {
+        display: inline-block;
+    }
+
+    .spc-selects {
+        //keeps the SPC tree from shifting around on DOM load
+        //height:160px;
+    }
+    .table-spcTreeFilter {
+        thead {
+            display: none;
+        }
+
+        z-index: 1;
+        color: $silver;
+        font-family: Proxima-Semi-Bold;
+        margin-left: 4%;
+        width: 96%;
+
+        tr td {
+            padding: 0.4rem;
+            color: $silver;
+            &.active {
+                color: $white;
+            }
+            &:nth-child(2) {
+                cursor: pointer;
+            }
+            .treefilter-subrow {
+                cursor: default;
+                padding-bottom: 0px;
+                .treefilter-subrow-div {
+                    border-bottom: 1px solid #263548;
+                    &:hover {
+                        background: #17202b
+                    }
+                    width: 100%;
+                    padding-top: 6px;
+                }
+                p {
+                    border-bottom: 0px;
+                    overflow: hidden;
+                    width: 100%;
+                    text-overflow: ellipsis;
+                    white-space: pre-line;
+                }
+            }
+        }
+        tr.even {
+            background: transparent;
+        }
+        tr.expanded-row td:last-child {
+            border-bottom: 1px solid #263548;
+        }
+        tr td:first-child {
+            width: 2%;
+            padding-left: 0;
+        }
+        p {
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            margin-left: 10px;
+            border-bottom: 1px solid $jet;
+            cursor: pointer;
+            position: relative;
+        }
+        .row-selected p,
+        .row-selected td {
+            color: $white;
+            .fa {
+                color: $white;
+            }
+        }
+        .row-selected p {
+            position: relative;
+
+            &:after {
+                content: '';
+                width: 0;
+                height: 10px;
+                right: 0px;
+                top: 15%;
+                position: absolute;
+                border-top: 6px solid transparent;
+                border-bottom: 6px solid transparent;
+                border-left: 6px solid $white;
+            }
+        }
+
+        //top level arrow
+        .row-selected td:after {
+            top: 22%;
+        }
+    }
+    .top-level-le {
+        color: $silver;
+        font-family: Proxima-Semi-Bold;
+        position: relative;
+        font-size: 1.1rem;
+        margin: 8px 0;
+        /*
+    &.active:after {
+            content:'';
+            width: 0;
+            height: 10px;
+            right:5px;
+            top:3px;
+            position: absolute;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left:6px solid $silver;
+    }
+    */
+    }
+    .treefilter-tooltip {
+        background-color: $silver;
+        position: absolute;
+        left: 250px;
+        top: -50%;
+        min-width: 200px;
+        z-index: 200;
+        padding: 10px;
+        font-family: Proxima-Semi-Bold;
+        color: #000;
+        &:before {
+            content: '';
+            width: 0;
+            height: 12px;
+            left: -6px;
+            top: 25%;
+            position: absolute;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-right: 6px solid $silver;
+        }
+    }
+    .treefilter-tooltip.subitem {
+        left: 300px;
+    }
+
+    .capital-activity-legend {
+        @extend .legend-container;
+        //swap out the default color
+        div:before {
+            background: #3db879;
+        }
+        div:nth-child(2):before {
+            background: #cb3536;
+        }
+        div:nth-child(3):before {
+            background: #2f695b;
+        }
+        div:nth-child(4):before {
+            background: #763038;
+        }
+    }
+    .balance-summary {
+        strong {
+            color: $smoke;
+            text-transform: uppercase;
+        }
+        .market-value, .market-value-pending-orders {
+            h2, h3 {
+                margin-bottom: 0;
+                display: inline-block;
+                span {
+                    font-size: 80%;
+                }
+            }
+            small {
+                color: $smoke;
+            }
+        }
+        .exchange-value {
+            margin-top: 10px;
+        }
+    }
+}
+
+// ------------------ Unauthenticated utility pages  ------------------
+
+.container.unauthenticated {
+    padding: 0;
+    margin: 0;
+    margin-top: -1rem;
+    background: #1b2634 url(../../img/bg-unauthenticated.jpg) top left no-repeat;
+    background-size: 100%;
+    min-height: 1000px;
+    img.logo {
+        margin: 60px 0px 0px 60px
+    }
+    .content {
+        max-width: 1000px;
+        padding-top: 170px;
+        margin: auto;
+        height: 100%;
+        footer {
+            background: none;
+            strong, a {
+                display: block;
+                font-size: 0.9rem;
+            }
+            a {
+                color: $silver;
+            }
+        }
+        button {
+            background-color: #415a76;
+            color: #fff;
+            opacity: 0.7;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            letter-spacing: 0.1rem;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// ------------------ Nav Fund  ------------------
+
+.nav-fund {
+    .activity-summary {
+        color: $smoke;
+        margin-bottom: 40px;
+        .numbers {
+            font-size: rem-calc(20px);
+        }
+        .fa-file {
+            margin-right: .4rem;
+            color: $smoke;
+        }
+    }
+    .panel.summary {
+        color: $smoke;
+        margin-bottom: 40px;
+        strong {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+// ------------------ Help  ------------------
+
+.help {
+    .panel {
+        strong {
+            display: block;
+            color: $smoke;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+    .faq-container {
+        padding-top: 25px;
+    }
+    .expand-topic {
+        margin-bottom: 10px;
+        h3 {
+            cursor: pointer;
+            text-transform: uppercase;
+            .fa {
+                margin-right: 0.5rem;
+            }
+        }
+        ul {
+            display: none;
+            width: 90%;
+        }
+        li {
+            padding: 1rem;
+            margin-left: 1.4rem;
+            strong {
+                display: block;
+                font-size: rem-calc(14px);
+            }
+            &:nth-child(odd) {
+                background: $panel-bg;
+            }
+        }
+        &.active {
+            ul {
+                display: block;
+            }
+        }
+    }
+    textarea {
+        margin-bottom: 0;
+        min-height: 100px;
+    }
+    .submit {
+        margin-top: 1.33rem;
+    }
+}
+
+.errors {
+    min-height: 64vh;
+    h1 {
+        padding-top: 10vh;
+    }
+}
+
+// ------------------ Error Popup ------------------
+
+.error-popup {
+    hr {
+        margin: 2rem 1rem;
+    }
+    ul {
+        margin-top: 0.5rem;
+        margin-left: 4.2rem;
+        list-style: inherit;
+        li {
+            list-style: inherit;
+        }
+    }
+    .error-text {
+        color: $red;
+    }
+    .error-icon {
+        font-size: 2.5rem;
+        margin-right: 1rem;
+        color: $red;
+    }
+    .left {
+        float: left;
+    }
+    .message .error-text {
+        font-family: Proxima-Semi-Bold;
+    }
+    .icon-text {
+        line-height: 2.6rem;
+    }
+}

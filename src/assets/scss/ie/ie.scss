@@ -1,0 +1,350 @@
+//IE9 specific styles
+
+//Note: many styles have to be duplicated here when replacing flex box, IE9 ignores all styles after flex
+
+//Importing color and text variables:
+$font-family-sans-serif: Proxima-Regular, Arial, sans-serif;
+$font-family-serif: GT-Spectra, Times, serif;
+$navy           :#063c5c;
+$white          :#ffffff;
+$aqua           :#37c0cd;
+$blue           :#1c4b9b;
+$light-blue     :#00aeef;
+$orange         :#d88132;
+$red            :#c61a1a;
+$brown          :#aa2711;
+$dark-blue      :#1b2634;
+$green          :#3cb878;
+$active         :#242f3f;
+$silver         :#71a0d2;
+$smoke          :#939393;
+$jet            :#212c3c;
+$black          :#000000;
+$body-text      :#cecece;
+$panel-bg       :#263548;
+$panel-dark     :#212c3c;
+$form-element-bg:#212c3c;
+$primary-color  :#cecece;
+$body-bg        :$dark-blue;
+$body-font-color:$body-text;
+$body-font-family:$font-family-sans-serif;
+
+//remove background image
+select {
+  background-image:none;
+}
+
+.clear-text-input {
+  position:relative;
+  input[type=text] {
+      width:107%;
+  }
+  .fa-times-circle {
+    display:none;
+  }
+}
+
+.view-tabs {
+  h3 {
+    display:inline-block;
+    max-width: 180px;
+  }
+  div.vdiv {
+    display: inline-block;
+  }
+}
+
+//Fund details long names
+.fund-accounting .view-tabs h3 {
+  max-width:240px;
+}
+
+
+.fund-legend {
+  float:right;
+  div {
+    float:left;
+
+  }
+}
+
+
+.table-header {
+  height:30px;
+  div {
+    float:left;
+  }
+  div:last-child {
+    float:right;
+  }
+}
+
+.multi-select {
+  position:relative;
+  //make it look like a select element
+  button {
+    background-color:$jet;
+    color:$silver;
+    text-align:left;
+    padding:.6rem 2rem 0.6rem 0.6rem;
+    text-transform: capitalize;
+  }
+  .fa-angle-down {
+    cursor:pointer;
+    position:absolute;
+    top:8px;
+    right:10px;
+    color:$silver;
+  }
+  .module {
+    background:$silver;
+    .loader {
+      padding-top:10%;
+      .fa {
+        font-size:120%;
+      }
+    }
+  }
+  //drop down container
+  .data {
+    position:absolute;
+    padding:4px 4px 10px 4px;
+    top:30px;
+    left:0px;
+    width: 100%;
+    z-index:21;
+    background:$silver;
+    overflow:hidden;
+    input[type=checkbox] {
+      margin-right:0.6rem;
+      margin-bottom:0;
+      float: left;
+    }
+    .search {
+      position:relative;
+      input {
+        padding-right:30px;
+      }
+      .fa {
+        cursor:pointer;
+        position:absolute;
+        top:10px;
+        right:10px;
+        color:$white;
+      }
+    }
+    .all {
+      border-bottom:1px solid $white;
+      padding-bottom:5px;
+      margin-bottom:10px;
+      margin-left:5px;
+      strong {
+        @extend .action;
+        margin-bottom:5px;
+        display:block;
+        color:$white;
+      }
+    }
+    ul {
+      margin-bottom:0;
+      li {
+        padding:2px;
+      }
+      li:hover {
+        background:$dark-blue;
+      }
+    }
+    hr {
+      border:1px solid $white;
+      margin:1rem 0rem 1rem 0rem;
+      visibility:hidden;
+    }
+    .options {
+      max-height:200px;
+      overflow-y:auto;
+      margin-left:5px;
+      color:$white;
+        li {
+            input[type=checkbox] {
+                margin-right:0.6rem;
+                margin-bottom:0;
+                width: 8%;
+                float: left;
+                margin-top: 0px;
+            }
+        }
+
+    }
+    .loader {
+      background:$silver;
+      .fa {
+        color:$white;
+      }
+    }
+    .total {
+      color:$white;
+      padding-left:6px;
+    }
+  }
+}
+
+
+.ms-all-component {
+  height:21px;
+  .check-arrow {
+    background:$dark-blue;
+    min-width:40px;
+    padding-left:10px;
+    padding-right:10px;
+    .fa-angle-down {
+      position:relative;
+      top:-2px;
+      left:2px;
+    }
+  }
+  .options {
+    background: $jet;
+    padding:10px;
+    position:absolute;
+    left:40px;
+    margin-top:20px;
+    z-index:100;
+  }
+}
+
+.investors {
+  .parameter-tabs {
+    min-height:49px;
+    margin-bottom:0;
+    li {
+      float:left;
+      width:33.33%;
+      overflow:hidden;
+      padding:3%;
+      line-height:120%;
+      min-height:49px;
+      &.active {
+        background:$panel-bg;
+        color:$white;
+      }
+    }
+  }
+}
+
+.dashboard {
+  .fund-panel {
+    position:relative;
+    overflow:hidden;
+
+  }
+}
+
+.investment-manager .nav-production-section .fund {
+  span {
+    height:20px;
+    display:block;
+    float:left;
+    background:#ff0000;
+    &.complete{
+      background-color: #3db879;
+    }
+    &.due{
+      background-color: #d2c858;
+    }
+    &.overdue{
+      background-color: #cb3535;
+    }
+    &.scheduled{
+      background-color: $panel-bg;
+    }
+  }
+}
+
+.preferences {
+  .prefs {
+    div {
+      float:left;
+      label {
+        position:relative;
+        margin-right:20px;
+        margin-top:6px;
+      }
+    }
+    .multi-select {
+      min-width:280px;
+      .data {
+        width:100%;
+      }
+    }
+  }
+}
+
+.chart.portfolio-attribution-by-position {
+  width: 100%;
+  height: 550px;
+}
+.modal .chart.portfolio-attribution-by-position{
+  width: 100%;
+  height: 1000px;
+}
+
+.chart.pnl-by-position{
+  width: 100%;
+  height: 320px;
+}
+.modal .chart.pnl-by-position{
+  width: 100%;
+  height: 600px;
+}
+
+.chart.pnl-tracking{
+  width: 100%;
+  height: 320px;
+}
+.modal .chart.pnl-tracking{
+  width: 100%;
+  height: 600px;
+}
+
+.chart.recon-break-by-type{
+  width: 100%;
+  height: 420px;
+}
+.modal .chart.recon-break-by-type{
+  width: 100%;
+  height: 650px;
+}
+
+.chart.recon-break-by-counterparty{
+  width: 100%;
+  height: 720px;
+}
+.modal .chart.recon-break-by-counterparty{
+  width: 100%;
+  height: 690px;
+}
+
+.chart.recon-break-tracking{
+  width: 100%;
+  height: 390px;
+}
+.modal .chart.recon-break-tracking{
+  width: 100%;
+  height: 680px;
+}
+
+.modal .chart.pnl-by-category{
+  width: 100%;
+  height: 380px;
+}
+
+.modal .chart.portfolio-attribution-by{
+  width: 100%;
+  height: 380px;
+}
+
+.modal .chart.pnl-attribution-by{
+  width: 100%;
+  height: 380px;
+}
+

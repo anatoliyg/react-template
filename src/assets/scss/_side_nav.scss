@@ -1,0 +1,244 @@
+// side_nav.scss
+
+.side-navigation {
+	position: fixed;
+	background: $white;
+	height: 100%;
+	width: 60px;
+	top: 0px;
+	left: 0px;
+	color: $silver;
+	z-index: 1000;
+	font-family: Proxima-Semi-Bold;
+	font-size: rem-calc(14px); // font-size: 1.15rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+
+	.prefs-container {
+		position: absolute;
+		bottom: 4%;
+		left: 0;
+		width: 100%;
+
+		div {
+			&:hover {
+				background: #dce5ef;
+
+				&:after {
+					content: '';
+					width: 0;
+					height: 20px;
+					height: 20px;
+					right: 0px;
+					top: 8px;
+					position: absolute;
+					border-top: 12px solid transparent;
+					border-bottom: 12px solid transparent;
+					border-right: 12px solid #709ccd;
+				}
+			}
+		}
+	}
+
+	div {
+		flex: 0 0 auto;
+		position: relative;
+		padding-top: 9px;
+		padding-bottom: 9px;
+		text-align: center;
+		text-transform: uppercase;
+		cursor: pointer;
+		&:hover:not(.role-apps):not(.logo):not(.prefs-container):not(:nth-child(2)) {
+			background: #dce5ef;
+			&:after {
+				content: '';
+				width: 0;
+				height: 20px;
+				right: 0px;
+				top: 8px;
+				position: absolute;
+				border-top: 12px solid transparent;
+				border-bottom: 12px solid transparent;
+				border-right: 12px solid #709ccd;
+			}
+
+			.fa {
+				color: #4a698a;
+			}
+		}
+		//current position
+		.fa.active, .fa.active + span {
+			color: $dark-blue;
+		}
+		&.active {
+			&:after {
+				content: '';
+				width: 0;
+				height: 20px;
+				right: 0px;
+				top: 8px;
+				position: absolute;
+				border-top: 12px solid transparent;
+				border-bottom: 12px solid transparent;
+				border-right: 12px solid $dark-blue;
+			}
+		}
+	}
+	//adjust home positioning
+	div:nth-child(3) {
+		height: 39px;
+		.fa-home {
+			margin-top: -4px;
+		}
+	}
+	div.logo {
+		border-bottom: 1px solid #ededed;
+		//temporary until icon graphic is required
+		margin-top: 4px;
+		padding-bottom: 12px;
+		cursor: default;
+	}
+
+	div.role-apps {
+		border-top: 1px solid #ededed;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		padding: 0;
+		//move arrows together
+		.arrows-icon {
+			.fa {
+				display: block;
+			}
+			.fa-long-arrow-left {
+				margin-top: -5px;
+			}
+		}
+	}
+	//side nav in expanded open state
+	&.open {
+		width: 220px;
+		//adjust text for home
+
+		div:nth-child(3) .fa-home + span {
+			position: relative;
+			top: -4px;
+		}
+		.prefs-container {
+			div {
+				position: relative;
+				left: -12px;
+				width: 220px;
+
+				&:hover {
+					background: #dce5ef;
+					&:after {
+						content: '';
+						width: 0;
+						height: 20px;
+						height: 20px;
+						right: 0px;
+						top: 8px;
+						position: absolute;
+						border-top: 12px solid transparent;
+						border-bottom: 12px solid transparent;
+						border-right: 12px solid #709ccd;
+					}
+				}
+			}
+		}
+		div {
+			text-align: left;
+			padding-left: 12px;
+			animation-name: fadeInIcons;
+			animation-duration: 2s;
+			.fa-fw {
+				width: 3rem;
+			}
+		}
+
+		.role-apps,
+		.apps {
+			background: $white !important;
+			padding-left: 6px;
+			padding-bottom: 0;
+			color: #93adc8;
+
+			.fa, label {
+				color: #93adc8;
+			}
+
+			&:after {
+				content: '';
+				display: none;
+			}
+
+			&:hover {
+				background: $white !important;
+			}
+		}
+
+		//user roles
+		.roles {
+			padding-top: 0;
+			.horizontal {
+				float: none;
+				padding-bottom: 0;
+				padding-top: 0;
+				input {
+					margin: 0;
+				}
+			}
+			div {
+				padding-top: 0;
+				&:hover {
+					background: $white !important;
+					&:after {
+						display: none;
+					}
+				}
+			}
+		}
+		.app-list {
+			font-size: 1rem;
+			padding-top: 0;
+			&:hover {
+				background: $white !important;
+				&:after {
+					display: none;
+				}
+			}
+			a {
+				padding-top: 4px;
+				padding-bottom: 4px;
+				padding-left: 34px;
+				display: block;
+				&:hover {
+					background-color: #dce5ef;
+					text-decoration: none;
+				}
+			}
+		}
+		.arrows-icon {
+			display: inline-block;
+			margin-right: 10px;
+			margin-left: 10px;
+			padding: 0;
+			&:after {
+				display: none;
+			}
+		}
+		.select-role span {
+			position: relative;
+			top: -5px;
+		}
+
+		.logo {
+			img {
+				max-width: 51%;
+				margin-left: 2px;
+			}
+		}
+	}
+}

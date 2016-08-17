@@ -1,0 +1,16 @@
+/**
+ * source: hint-theme.scss
+ *
+ * Defines basic theme for tooltips.
+ *
+ */
+
+.hint, [inputData-hint] {
+	/**
+	 * tooltip body
+	 */
+	&:after {
+		color:#1b2634;
+		font-family: Proxima-Regular;
+	}
+}

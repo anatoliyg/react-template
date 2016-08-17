@@ -1,0 +1,162 @@
+// print.scss
+
+@media print {
+// --------------------- General ----------------------
+	.search-input{
+		display: none;
+	}
+
+	.datepicker-container {
+		input[type="text"].datepicker__input {
+			height: initial;
+			font-size: 0.9rem;
+			padding: 5px;
+		}
+		&:before{
+			display: none;
+		}
+	}
+	input[type="file"],
+	input[type="checkbox"],
+	input[type="radio"],
+	select,
+	.date-picker input.date,
+	.date-picker input.date:hover,
+	.date-picker input.date:active{
+		margin-bottom: 0.5rem;
+	}
+	.date.picker {
+		background-color: #e7e7e7 !important;
+	}
+
+	.multi-select button,
+	.datepicker-container{
+		background-color: #e7e7e7 !important;
+	}
+
+	.form-spacer{
+		margin-bottom: 1rem;
+	}
+
+	.expanded-row + tr {
+		.panel{
+			background-color: #d8d8d8 !important;
+		}
+	}
+
+	.parameter-tabs li.active {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+
+	.view-tabs{
+		border-bottom: none;
+
+		h3{
+			border-bottom: none;
+
+			&.active{
+				border-bottom: 3px solid black;
+
+				&:before{
+					border-top-color: black;
+				}
+			}
+		}
+	}
+// ------------------- General END --------------------
+
+// --------------------- Dashboard --------------------
+	.dashboard{
+		.nav-production-section{
+			.complete  { background-color: #aaa !important; }
+			.overdue   { background-color: #878787 !important; }
+			.due       { background-color: #c6c6c6 !important; }
+			.scheduled { background-color: #363636 !important; }
+		}
+
+		.card .card-body{
+			.pending-inflow-bar { background-color: #aaa !important; }
+			.pending-outflow-bar{ background-color: #878787 !important; }
+		}
+
+		[class*="block-grid-"] > li {
+			width: 50%;
+		}
+	}
+// ------------------- Dashboard END ------------------
+
+// ------------------ Document Center -----------------
+	.document-center{
+		.view-tabs{
+			border-bottom: none;
+			h3{
+				border-bottom: none;
+				font-size: 1.1em !important;
+				line-height: 1.2rem;
+
+				&.active{
+					border-bottom: 3px solid #333;
+
+					&:before{
+						border-top-color: #000;
+					}
+				}
+			}
+		}
+		// vertical alignment for checkboxes
+		.horizontal-container{
+			display: block;
+		}
+		// filters buttons
+		#documents-form-submitpanel{
+			display: none;
+		}
+		// 'Select All' checkboxes
+		.ms-all-component{
+			display: none;
+		}
+		// show only selected checkboxes
+		table td input[type=checkbox],
+		table th input[type=checkbox] {
+			display: none;
+			&:checked{
+				display: block;
+			}
+		}
+	}
+// ---------------- Document Center END ---------------
+
+// ------------------ Investors LEIA ------------------
+	.investors-nav-locator li{
+		display: none;
+		&.active{
+			display: block;
+		}
+	}
+	.investors{
+		.details{
+			.entry{
+				h2 {
+					font-size: 1.3rem !important;
+				}
+				.currency{
+					font-size: 1.1rem !important;
+				}
+			}
+		}
+	}
+// ---------------- Investors LEIA END ----------------
+
+// --------------------- NAVPACK ----------------------
+	.navpack-view{
+		a[href]:after{
+			content: "";
+		}
+
+		.griddle-wrap .table-assets .griddle .table-assets .child-row {
+			border-color: transparent;
+		}
+	}
+// ------------------- NAVPACK END --------------------
+}

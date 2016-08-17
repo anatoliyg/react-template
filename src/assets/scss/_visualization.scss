@@ -1,0 +1,27 @@
+// visualization.scss
+
+.data-visualization{
+	.panel-visualization{
+		margin: 16px 0 8px;
+
+		.multi-select button,
+		.datepicker__input{
+			border: 1px solid $silver !important;
+			height: 34px;
+		}
+	}
+
+	.panel-visualization-item{
+		margin-bottom: 1.2rem;
+
+		button .fa-circle-o-notch{
+			position: absolute;
+			left: 20px;
+		}
+	}
+
+	.label-publishDate{
+		padding-top: 1rem;
+		height: 50px;
+	}
+}

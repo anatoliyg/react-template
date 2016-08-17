@@ -1,0 +1,47 @@
+@import "vendor/Foundation5/foundation/settings";
+
+// ------------------ Style guide  ------------------
+
+.atom-colorblock {
+  background:$navy;
+  border:1px solid $white;
+  padding:1rem;
+  min-height:160px;
+  &.white {
+    background:$white;
+    color:$jet;
+  }
+  &.aqua {
+    background:$aqua
+  }
+  &.black {
+    background:$black;
+  }
+  &.jet {
+    background:$jet;
+  }
+  &.blue {
+    background:$blue;
+  }
+  &.light-blue {
+    background:$light-blue;
+  }
+  &.dark-blue {
+    background:$dark-blue;
+  }
+  &.silver {
+    background:$silver;
+  }
+  &.teal {
+    background:$aqua;
+  }
+  &.orange {
+    background:$orange;
+  }
+  &.red {
+    background:$red;
+  }.card
+   &.brown {
+     background:$brown;
+   }
+}

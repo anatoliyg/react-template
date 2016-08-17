@@ -1,0 +1,74 @@
+@import "./../../variables";
+
+.navbar {
+  background-color: $light;
+  user-select: none;
+  -webkit-user-select: none;
+  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 60px;
+  line-height: 2em;
+  height: 100%;
+  z-index: 1000;
+  font-size: 1.2em;
+
+  .fake-clicks{
+    position: absolute;
+    top:0;
+    left: 0;
+
+
+    a{
+      position: absolute;
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: red;
+      opacity: 0.1;
+
+      &:nth-child(1){
+        top: 5px;
+        left: 5px;
+      }
+
+      &:nth-child(2){
+        top: 350px;
+        left: 5px;
+      }
+
+      &:nth-child(3){
+        top: 450px;
+        left: 5px;
+      }
+    }
+
+  }
+
+  .bg-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .bg-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+/*    &:after {
+      content: '\a0\b7\a0';
+    }*/
+    &:last-child:after {
+      content: '';
+    }
+  }
+}
